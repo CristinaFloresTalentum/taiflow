@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "663863321768",
+    "firebase_url": "https://cristina-66d46.firebaseio.com",
+    "project_id": "cristina-66d46",
+    "storage_bucket": "cristina-66d46.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:663863321768:android:e02a0120f174b3dd",
+        "android_client_info": {
+          "package_name": "cristina.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "663863321768-s435gqjpchjm1au72ojsftp9bdpeq7ju.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "cristina.myapplication",
+            "certificate_hash": "0dd4b7bfe536925d946b0e301bda5471c7aab3cd"
+          }
+        },
+        {
+          "client_id": "663863321768-upgm6jfk7hp867buk04m9jd0505vruat.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbloL3lgmK5U_TRf5B0a6TNRxJinEn8-o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "663863321768-upgm6jfk7hp867buk04m9jd0505vruat.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
