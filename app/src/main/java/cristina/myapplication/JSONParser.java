@@ -1,4 +1,4 @@
-/*package cristina.myapplication;
+package cristina.myapplication;
 
 import android.util.Log;
 
@@ -31,9 +31,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.util.Log;
-*//**
- * Created by Cristina on 16/8/17.
- *//*
 
 public class JSONParser {
     static InputStream is = null;
@@ -46,8 +43,8 @@ public class JSONParser {
     }
 
 
-    public JSONObject getJSONFromUrl(final String url) {
-
+    public JSONObject getJSONFromUrl(String url) {
+       url="https://personalshopper.000webhostapp.com/RS/example.php";
         // Making HTTP request
         try {
             // Construct the client and the HTTP request.
@@ -168,4 +165,5 @@ public class JSONParser {
 
     }
 
-}*/
+
+}

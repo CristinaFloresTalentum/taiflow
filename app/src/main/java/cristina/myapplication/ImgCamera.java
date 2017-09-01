@@ -12,44 +12,24 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
-import android.webkit.WebView;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-import android.media.ExifInterface;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -62,7 +42,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -87,8 +66,7 @@ public class ImgCamera extends AppCompatActivity {
 
     boolean check = true;
 
-    Button SelectImageGallery, UploadImageServer, SelectCamera, siguiente;
-
+    Button SelectImageGallery, UploadImageServer, SelectCamera;
     ImageView imageView;
 
     EditText imageName, title;
@@ -123,8 +101,7 @@ public class ImgCamera extends AppCompatActivity {
 
         final Button buttonUpload = (Button) findViewById(R.id.buttonUpload);
 
-
-        siguiente = (Button) findViewById(R.id.siguiente);
+        final Button buttonNext = (Button) findViewById(R.id.siguiente);
 
         // Does your device have a camera?
         if (hasCamera()) {
@@ -170,16 +147,6 @@ public class ImgCamera extends AppCompatActivity {
             }
         });
 
-        siguiente.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View view) {
-
-                AsyncTaskNextClass AsyncTaskNextClassOBJ = new AsyncTaskNextClass();
-
-                AsyncTaskNextClassOBJ.execute();
-            }
-        });
 
         UploadImageServer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -198,10 +165,18 @@ public class ImgCamera extends AppCompatActivity {
             }
         });
 
+        buttonNext.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+
+                Intent i = new Intent (ImgCamera.this, GetBestGuess.class);
+                startActivity(i);
+            }
+        });
+
 
     }
-
-
 
     // method to check you have a Camera
     private boolean hasCamera() {
@@ -502,63 +477,4 @@ public class ImgCamera extends AppCompatActivity {
 
     }
 
-    class AsyncTaskNextClass extends AsyncTask<Void,Void,String> {
-
-        final Button siguiente = (Button) findViewById(R.id.siguiente);
-
-        @Override
-        protected void onPreExecute() {
-
-            super.onPreExecute();
-
-            progressDialog = ProgressDialog.show(ImgCamera.this,"Image is Showing","Please Wait",false,false);
-        }
-
-        @Override
-        protected void onPostExecute(String string1) {
-
-            super.onPostExecute(string1);
-
-            // Dismiss the progress dialog after done uploading.
-            progressDialog.dismiss();
-
-        }
-
-        @Override
-        protected String doInBackground(Void... params) {
-
-            HttpClient httpClient = new DefaultHttpClient();
-            HttpGet httpGet = new HttpGet("https://personalshopper.000webhostapp.com/RS/example.php");
-
-            try {
-                final HttpResponse httpResponse = httpClient.execute(httpGet);
-
-                InputStream inputStream = httpResponse.getEntity().getContent();
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                final StringBuilder stringBuilder = new StringBuilder();
-
-                String bufferedStrChunk = null;
-
-                while ((bufferedStrChunk = bufferedReader.readLine()) != null){
-                    stringBuilder.append(bufferedStrChunk);
-                }
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        siguiente.setText(stringBuilder.toString());
-                    }
-                });
-            } catch (ClientProtocolException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return "Your image has been sucesfully deployed!";
-        }
-
-    }
-
-}
+   }
